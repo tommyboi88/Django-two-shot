@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Receipts</title>
+    <style>
+      nav li.current {
+        display: none;
+      }
+      body {
+        background-color: grey;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      li {
+        margin: 0 10px;
+      }
+      a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 10px;
+        transition: all 0.2s ease-in-out;
+      }
+      a:hover {
+        background-color: #333;
+        color: #fff;
+        border-radius: 3px;
+      }
+     </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        {% if user.is_authenticated %}
+        <li class="{% if request.resolver_match.url_name == 'home' %}current{% endif %}"><a href="{% url 'home' %}">My Receipts</a></li>
+        <li class="{% if request.resolver_match.url_name == 'create_receipt' %}current{% endif %}"><a href="{% url 'create_receipt' %}">Create Receipt</a></li>
+        <li class="{% if request.resolver_match.url_name == 'category_list' %}current{% endif %}"><a href="{% url 'category_list' %}">Category List</a></li>
+        <li class="{% if request.resolver_match.url_name == 'create_category' %}current{% endif %}"><a href="{% url 'create_category' %}">Create Category</a></li>
+        <li class="{% if request.resolver_match.url_name == 'account_list' %}current{% endif %}"><a href="{% url 'account_list' %}">Account List</a></li>
+        <li class="{% if request.resolver_match.url_name == 'create_account' %}current{% endif %}"><a href="{% url 'create_account' %}">Create Account</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'signup' %}">Signup</a></li>
+        <li><a href="{% url 'login' %}">Log In</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% block content %}
+    {% endblock content %}
+  </body>
+</html>
